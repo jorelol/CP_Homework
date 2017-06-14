@@ -4,11 +4,25 @@ import java.util.Scanner;
 /**
  * Created by jorel on 11/6/17.
  */
+
+/* This program is written to solve any sudoku puzzle within a few hundred milli-seconds
+   The user must first input the puzzle into a text file with zeros representing blanks
+   The program reads the text file and stores it as an array
+   The blanks (zeros) are tested with numbers 1 to 9 and must adhere to the following rules:
+        1) Each row can only have one instance of each number
+        2) Each column can only have one instance of each number
+        3) Each 3x3 square can only have one instance of each number
+   If a number satisfies all three requirements it is stored in the array replacing the zeroes
+   The program ends by printing out the solution that is found
+ */
+
 public class Solver
 {
 
     public static void main(String[] args) throws Exception
     {
+        // User will input file path here
+        // Text file can be modified at any time
         Scanner scanner = new Scanner(new File(
                 "/Users/jorel/Google Drive/SMU/Exchange/Classes/Computer Programming/sudoku.txt"));
 
@@ -34,12 +48,53 @@ public class Solver
             }
         }
 
+        //Loop to print out the text file stored as an array
+        //For statements are used to format the text file into a sudoku grid
+
+        System.out.println("Input Puzzle:");
+
+        System.out.println("-------------");
+
+        for (int y=0; y<9; y++)
+        {
+
+            if (y == 3 || y == 6)
+            {
+                System.out.println("-------------");
+            }
+
+            if (y <= 8)
+            {
+                System.out.print("|");
+            }
+
+            for (int x=0; x<9; x++)
+            {
+
+                System.out.print(sudoku[y][x]);
+
+                if(x == 2 || x == 5)
+                {
+                    System.out.print("|");
+                }
+
+                if (x == 8)
+                {
+                    System.out.print("|");
+                    System.out.println();
+                }
+            }
+        }
+        System.out.println("-------------");
+
+        System.out.println();
+
         //Solves the sudoku puzzle
         solve(sudoku, 0, 0);
 
     }
 
-    //This function goes through each blank (zeros) on the sudoku board and fills in numbers according to sudoku rules
+    //This method goes through each blank (zeros) on the sudoku board and fills in numbers according to sudoku rules
     private static void solve(int[][] sudoku, int cellX, int cellY)
     {
         //Once the y value is 9, the sudoku puzzle is solved
@@ -184,17 +239,40 @@ public class Solver
     private static void printSudoku(int sudoku[][])
     {
         //Loops through the array and prints it
+        //For statements are used to format the array into a sudoku grid
+
+        System.out.println("Output Solution:");
+
+        System.out.println("-------------");
+
         for(int y = 0; y < 9; y++)
         {
+            if (y == 3 || y == 6)
+            {
+                System.out.println("-------------");
+            }
+
+            if (y <= 8)
+            {
+                System.out.print("|");
+            }
+
             for(int x = 0; x < 9; x++)
             {
                 System.out.print(sudoku[y][x]);
+                if (x == 2 || x == 5)
+                {
+                    System.out.print("|");
+                }
                 //Start new line at the end of each row
                 if(x == 8)
                 {
+                    System.out.print("|");
                     System.out.println();
                 }
             }
         }
+
+        System.out.println("-------------");
     }
 }
